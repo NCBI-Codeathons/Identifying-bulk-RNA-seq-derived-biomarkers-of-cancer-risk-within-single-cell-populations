@@ -77,7 +77,6 @@ def counts_matrix_for_cells(cells):
 
 def main():
     cells = ['PJ016_4', 'PJ016_5', 'PJ016_6']
-    _, cells = counts_matrix_for_tumor()
     # print(np.sum(counts_matrix_for_cells(cells), axis=1))
 
 if __name__ == '__main__':

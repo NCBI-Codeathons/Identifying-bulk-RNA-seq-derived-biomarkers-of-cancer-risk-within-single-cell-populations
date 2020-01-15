@@ -1,13 +1,13 @@
 from setuptools import setup
 
 requirements = [
-    'numpy', 'pandas', 'h5py', 'dash'
+    'numpy', 'pandas', 'h5py',
 ]
 
 setup(
-    name='scRNA-seq-bulk-biomarker',
+    name='scRNA_biomarker',
     version='',
-    packages=['src', 'src.analysis', 'src.common', 'src.preprocess', 'src.visualization'],
+    packages=['src', 'src.analysis', 'src.common', 'src.preprocess'],
     url='',
     license='',
     author='NYGC-singlecell-hackathon-team-biomarker',

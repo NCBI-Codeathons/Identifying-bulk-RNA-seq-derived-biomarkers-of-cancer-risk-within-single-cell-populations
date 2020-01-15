@@ -1,0 +1,36 @@
+Gene	Contained pathway	Coefficient (β)	HR	p
+BL1	Cell cycle, ErbB pathway	-0.1215	0.886	0.650
+CCNA1	Cell cycle	-0.0899	0.914	0.520
+CCND1	Cell cycle	0.0746	1.077	0.620
+CCNE1	Cell cycle	-0.4975	0.608	0.032
+CDC6	Cell cycle	0.2324	1.262	0.410
+CDK2	Cell cycle	-0.5268	0.591	0.150
+CDKN1C	Cell cycle	-0.0285	0.972	0.900
+CDKN2A	Cell cycle, p53 pathway	0.1415	1.152	0.170
+DKK1	WNT pathway	0.1759	1.192	0.040
+FZD3	WNT pathway	0.2434	1.276	0.230
+FZD7	WNT pathway	0.4934	1.638	0.022
+GADD45G	MAPK pathway	0.2850	1.330	0.200
+GHR	JAK-STAT pathway	-0.2292	0.795	0.180
+GSTT1	Glutathione metabolism	0.0485	1.050	0.590
+HSPA1B	JAK-STAT pathway	-0.1244	0.883	0.340
+ID4	TGF- β pathway	-0.1680	0.845	0.350
+IGFBP3	p53 pathway	0.1103	1.117	0.340
+INHBB	TGF- β pathway	-0.1187	0.888	0.390
+IRS2	Insulin signaling	-0.0665	0.936	0.790
+LIFR	ErbB pathway	-0.1009	0.904	0.670
+PDGFRA	MAPK pathway	0.0262	1.027	0.760
+PIK3CA	Phosphatidylinositol signaling	0.1479	1.159	0.420
+PLA2G5	Phosphatidylinositol signaling	-0.0176	0.983	0.900
+POLE3	Nucleotide excision repair	0.0615	1.063	0.840
+PPARGC1A	MAPK pathway	0.4121	1.510	0.045
+PRKAR2B	Insulin signaling	0.0641	1.066	0.660
+PYGB	Insulin signaling	-0.4071	0.666	0.160
+SFRP1	WNT pathway	-0.1216	0.886	0.270
+SFRP4	WNT pathway	0.1461	1.157	0.270
+SH2B2	Insulin signaling	-0.0199	0.980	0.950
+STAG3L4	JAK-STAT pathway	-0.0001	1.000	1.000
+STMN1	MAPK pathway	0.0837	1.087	0.750
+THBS2	Focal adhesion	-0.1319	0.876	0.330
+THBS3	Focal adhesion	-0.3916	0.767	0.160
+VEGFA	VEGFA signaling	-0.0268	0.974	0.810
