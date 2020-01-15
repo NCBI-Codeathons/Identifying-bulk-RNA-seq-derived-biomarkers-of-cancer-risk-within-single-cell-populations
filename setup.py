@@ -1,12 +1,17 @@
 from setuptools import setup
 
+requirements = [
+    'numpy', 'pandas', 'h5py', 'dash'
+]
+
 setup(
-    name='Identifying-bulk-RNA-seq-derived-biomarkers-of-cancer-risk-within-single-cell-populations',
+    name='scRNA-seq-bulk-biomarker',
     version='',
     packages=['src', 'src.analysis', 'src.common', 'src.preprocess', 'src.visualization'],
     url='',
     license='',
     author='NYGC-singlecell-hackathon-team-biomarker',
     author_email='',
-    description=''
+    description='',
+    install_requires=requirements,
 )
