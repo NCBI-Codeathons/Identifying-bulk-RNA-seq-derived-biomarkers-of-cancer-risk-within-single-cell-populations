@@ -4,8 +4,8 @@ import json
 import numpy as np
 import h5py 
 
-ROOT = '/Users/matthewbernstein/Development/single-cell-hackathon/data'
-OUT_F = '/Users/matthewbernstein/Development/single-cell-hackathon/data/GSE76381.h5'
+ROOT = '../../data'
+OUT_F = '../../data/GSE76381.h5'
 THE_FILE = '{}/GSE76381_EmbryoMoleculeCounts.cef.txt'.format(ROOT)
 
 def main():

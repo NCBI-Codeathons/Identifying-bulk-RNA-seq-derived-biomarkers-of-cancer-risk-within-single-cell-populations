@@ -2,7 +2,7 @@ import h5py
 import numpy as np
 from collections import defaultdict
 
-DATA_F = '/Users/matthewbernstein/Development/single-cell-hackathon/data/GSE103224.h5'
+DATA_F = '../../data/GSE103224.h5'
 
 # Load cell names and tumor names
 with h5py.File(DATA_F, 'r') as f:
@@ -77,7 +77,8 @@ def counts_matrix_for_cells(cells):
 
 def main():
     cells = ['PJ016_4', 'PJ016_5', 'PJ016_6']
-    #print(np.sum(counts_matrix_for_cells(cells), axis=1))
+    _, cells = counts_matrix_for_tumor()
+    # print(np.sum(counts_matrix_for_cells(cells), axis=1))
 
 if __name__ == '__main__':
     main()
