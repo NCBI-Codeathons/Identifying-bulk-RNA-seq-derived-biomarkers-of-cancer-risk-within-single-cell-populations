@@ -1,20 +1,21 @@
 from optparse import OptionParser
 import pandas as pd
 import json
+import gzip
 import numpy as np
 import h5py 
 
-ROOT = '/Users/matthewbernstein/Development/single-cell-hackathon/data/GSE103224_RAW'
-OUT_F = '../data/GSE103224.h5'
+ROOT = '../../data/GSE103224_RAW'
+OUT_F = '../../data/GSE103224.h5'
 TUMOR_TO_FILE = {
-    'PJ016': '{}/GSM2758471_PJ016.filtered.matrix.txt'.format(ROOT),
-    'PJ018': '{}/GSM2758473_PJ018.filtered.matrix.txt'.format(ROOT),
-    'PJ030': '{}/GSM2758475_PJ030.filtered.matrix.txt'.format(ROOT),
-    'PJ035': '{}/GSM2758477_PJ035.filtered.matrix.txt'.format(ROOT),
-    'PJ017': '{}/GSM2758472_PJ017.filtered.matrix.txt'.format(ROOT),
-    'PJ025': '{}/GSM2758474_PJ025.filtered.matrix.txt'.format(ROOT),
-    'PJ032': '{}/GSM2758476_PJ032.filtered.matrix.txt'.format(ROOT),
-    'PJ048': '{}/GSM2940098_PJ048.filtered.matrix.txt'.format(ROOT)
+    'PJ016': '{}/GSM2758471_PJ016.filtered.matrix.txt.gz'.format(ROOT),
+    'PJ018': '{}/GSM2758473_PJ018.filtered.matrix.txt.gz'.format(ROOT),
+    'PJ030': '{}/GSM2758475_PJ030.filtered.matrix.txt.gz'.format(ROOT),
+    'PJ035': '{}/GSM2758477_PJ035.filtered.matrix.txt.gz'.format(ROOT),
+    'PJ017': '{}/GSM2758472_PJ017.filtered.matrix.txt.gz'.format(ROOT),
+    'PJ025': '{}/GSM2758474_PJ025.filtered.matrix.txt.gz'.format(ROOT),
+    'PJ032': '{}/GSM2758476_PJ032.filtered.matrix.txt.gz'.format(ROOT),
+    'PJ048': '{}/GSM2940098_PJ048.filtered.matrix.txt.gz'.format(ROOT)
 }
 
 def main():
@@ -32,7 +33,7 @@ def main():
     for tumor, tumor_f in TUMOR_TO_FILE.items():
         print('Loading {}...'.format(tumor_f))
         df = pd.read_csv(
-            tumor_f, 
+            gzip.open(tumor_f, "rt"),
             sep='\t', 
             header=None, 
             index_col=0
