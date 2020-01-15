@@ -77,7 +77,7 @@ def counts_matrix_for_cells(cells):
 
 def main():
     cells = ['PJ016_4', 'PJ016_5', 'PJ016_6']
-    # print(np.sum(counts_matrix_for_cells(cells), axis=1))
+    #print(np.sum(counts_matrix_for_cells(cells), axis=1))
 
 if __name__ == '__main__':
     main()

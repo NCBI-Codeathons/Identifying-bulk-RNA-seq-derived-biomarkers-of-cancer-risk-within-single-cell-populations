@@ -16,7 +16,7 @@ import phate
 
 sys.path.append('..')
 
-from common import load
+from ..common import load_GSE103224 as load
 
 TUMORS = [
     'PJ016',

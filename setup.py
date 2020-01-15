@@ -5,8 +5,9 @@ requirements = [
 ]
 
 setup(
-    name='scRNA_biomarker',
+    name='scRNAbiomarker',
     version='',
+    package_dir={'scRNAbiomarker': 'src'},
     packages=['src', 'src.analysis', 'src.common', 'src.preprocess'],
     url='',
     license='',
