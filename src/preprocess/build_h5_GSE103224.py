@@ -5,7 +5,7 @@ import numpy as np
 import h5py 
 
 ROOT = '/Users/matthewbernstein/Development/single-cell-hackathon/data/GSE103224_RAW'
-OUT_F = '/Users/matthewbernstein/Development/single-cell-hackathon/data/GSE103224.h5'
+OUT_F = '../data/GSE103224.h5'
 TUMOR_TO_FILE = {
     'PJ016': '{}/GSM2758471_PJ016.filtered.matrix.txt'.format(ROOT),
     'PJ018': '{}/GSM2758473_PJ018.filtered.matrix.txt'.format(ROOT),
