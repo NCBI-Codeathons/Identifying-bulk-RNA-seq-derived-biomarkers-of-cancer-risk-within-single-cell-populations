@@ -101,8 +101,7 @@ class H5COUNTS():
                                              columns=["cluster"])
         # Assign cluster assignment to the AnnData's
         for tumor in tumor_ids:
-            print("tumor", tumor)
-            self.tumor_to_ad[tumor].obs = self.tumor_to_ad[tumor].obs.join(tumor_cell_cluster_df, on="cell")
+            self.tumor_to_ad[self.id2tumor[tumor]].obs = self.tumor_to_ad[self.id2tumor[tumor]].obs.join(tumor_cell_cluster_df, on="cell")
 
 
 
