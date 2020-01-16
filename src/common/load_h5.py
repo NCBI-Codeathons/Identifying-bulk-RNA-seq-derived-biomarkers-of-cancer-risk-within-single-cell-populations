@@ -45,7 +45,7 @@ class H5COUNTS():
 
 
     def preprocess_data(self):
-        tumor_ans = {}
+        self.tumor_ans = {}
         for tumor in self.TUMORS:
             print(tumor)
             counts, cells = self.counts_matrix_for_tumor(tumor)
@@ -61,12 +61,12 @@ class H5COUNTS():
             sc.pp.normalize_total(ad, target_sum=1e6)
             sc.pp.log1p(ad)
             ad.X = pd.DataFrame(ad.X, index=cells, columns=self.GENE_NAMES)
-            tumor_ans[tumor] = ad
+            self.tumor_ans[tumor] = ad
 
         for tumor in self.TUMORS:
-            tumor_ans[tumor].X.index = pd.MultiIndex.from_tuples(tumor_ans[tumor].X.index.str.split("_", expand=True),
+            self.tumor_ans[tumor].X.index = pd.MultiIndex.from_tuples(self.tumor_ans[tumor].X.index.str.split("_", expand=True),
                                                                  names=["tumor", "cell"])
-        self.all_tumor_df = pd.concat([tumor_ans[tumor].X for tumor in self.TUMORS])
+        self.all_tumor_df = pd.concat([self.tumor_ans[tumor].X for tumor in self.TUMORS])
 
     def counts_matrix_for_tumor(self, tumor):
         indices = self.TUMOR_TO_INDICES[tumor]
@@ -77,6 +77,10 @@ class H5COUNTS():
 
     def get_unique_tumors(self):
         return np.unique(self.TUMORS)
+
+    def add_clustering_results(self):
+        pass
+
 
 
 
