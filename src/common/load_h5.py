@@ -40,8 +40,8 @@ class H5COUNTS():
         self.TUMOR_TO_INDICES = dict(self.TUMOR_TO_INDICES)
 
         self.TUMORS = np.unique(self.TUMORS)
-        self.tumor_id = {tumor: tumor_id + 1 for tumor_id, tumor in enumerate(self.TUMORS)}
-        self.id_tumor = {tumor_id + 1: tumor for tumor_id, tumor in enumerate(self.TUMORS)}
+        self.tumor2id = {tumor: tumor_id + 1 for tumor_id, tumor in enumerate(self.TUMORS)}
+        self.id2tumor = {tumor_id + 1: tumor for tumor_id, tumor in enumerate(self.TUMORS)}
 
 
     def preprocess_data(self):
@@ -78,8 +78,33 @@ class H5COUNTS():
     def get_unique_tumors(self):
         return np.unique(self.TUMORS)
 
-    def add_clustering_results(self):
-        pass
+    def add_clustering_results(self, path="data/interim/", tumor_ids=[1, 2, 3, 4, 5, 6, 7, 8]):
+        self.tumor_cell_cluster = pd.DataFrame(columns=["tumor", "cell", "cluster"])
+
+        for tumor in tumor_ids:
+            cell_cluster = pd.read_csv(path+"T{}_META.csv".format(tumor))
+
+            cell_cluster.rename(columns={"Unnamed: 0": "cell", "RNA_snn_res.0.8": "cluster"},
+                                inplace=True)
+            cell_cluster["cell"] = cell_cluster["cell"].str.split("_", expand=True)[1].astype(int) - 1
+            cell_cluster["cell"] = cell_cluster["cell"].astype(str)
+            cell_cluster["tumor"] = self.id2tumor[tumor]
+
+            self.tumor_cell_cluster = self.tumor_cell_cluster.append(cell_cluster[["tumor", "cell", "cluster"]])
+
+
+        self.tumor_cell_cluster["cluster"] = self.tumor_cell_cluster["cluster"].astype(str)
+        self.tumor_cell_cluster.set_index(["tumor", "cell"], inplace=True)
+
+        tumor_cell_cluster_df = pd.DataFrame(self.tumor_cell_cluster.values,
+                                             index=self.tumor_cell_cluster.index.to_flat_index().str.join("_"),
+                                             columns=["cluster"])
+        # Assign cluster assignment to the AnnData's
+        for tumor in tumor_ids:
+            print("tumor", tumor)
+            self.tumor_to_ad[tumor].obs = self.tumor_to_ad[tumor].obs.join(tumor_cell_cluster_df, on="cell")
+
+
 
 
 
