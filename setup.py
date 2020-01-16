@@ -1,7 +1,7 @@
 from setuptools import setup
 
 requirements = [
-    'numpy', 'pandas', 'h5py',
+    'numpy', 'pandas', 'h5py', 'plotly', 'gseapy'
 ]
 
 setup(
