@@ -39,51 +39,57 @@ RGS14		0.546	1.72
 G6PC3		1.207	3.34	
 IGFBP2		0.258	1.29	
 TIMP4		-0.206	0.81	
-IDH1	""	""	""	""
-TP53	""	""	""	""
-EGFR	""	""	""	""
-ATRX	""	""	""	""
-EZH2	""	""	""	""
-MGMT	""	""	""	""
-DEPDC6	""	""	""	""
-RPRM	""	""	""	""
-NET1	""	""	""	""
-NET1	""	""	""	""
-WAC	""	""	""	""
-March8	""	""	""	""
-AI054381	""	""	""	""
-REPS2	""	""	""	""
-ZNF609	""	""	""	""
-KLF13	""	""	""	""
-IL8	""	""	""	""
-ADM	""	""	""	""
-PDPN	""	""	""	""
-IGFBP2	""	""	""	""
-MDK	""	""	""	""
-TIMP1	""	""	""	""
-EFEMP2	""	""	""	""
-EFEMP2	""	""	""	""
-ACOX2	""	""	""	""
-TAGLN2	""	""	""	""
-SLC43A3	""	""	""	""
-LGALS8	""	""	""	""
-LGALS8	""	""	""	""
-DYNLT3	""	""	""	""
-KIAA0323	""	""	""	""
-TFRC	""	""	""	""
-KIAA0495	""	""	""	""
-FBXO17	""	""	""	""
-TMEM22	""	""	""	""
-LOC390940	""	""	""	""
-MT1E	""	""	""	""
-DCTD	""	""	""	""
-FLJ11286	""	""	""	""
-C13orf18	""	""	""	""
-C13orf18	""	""	""	""
-HOMER1	""	""	""	""
-FAM3C	""	""	""	""
-CASP3	""	""	""	""
-NSUN5	""	""	""	""
-NSUN5	""	""	""	""
-PDLIM3	""	""	""	""
-MT1M	""	""	""	""
+IDH1				
+TP53				
+EGFR				
+ATRX				
+EZH2				
+MGMT				
+DEPDC6				
+RPRM				
+NET1				
+NET1				
+WAC				
+March8				
+AI054381				
+REPS2				
+ZNF609				
+KLF13				
+IL8				
+ADM				
+PDPN				
+IGFBP2				
+MDK				
+TIMP1				
+EFEMP2				
+EFEMP2				
+ACOX2				
+TAGLN2				
+SLC43A3				
+LGALS8				
+LGALS8				
+DYNLT3				
+KIAA0323				
+TFRC				
+KIAA0495				
+FBXO17				
+TMEM22				
+LOC390940				
+MT1E				
+DCTD				
+FLJ11286				
+C13orf18				
+C13orf18				
+HOMER1				
+FAM3C				
+CASP3				
+NSUN5				
+NSUN5				
+PDLIM3				
+MT1M				
+CD79B	""	""	""	""
+MAP2K3	""	""	""	""
+IMPDH1	""	""	""	""
+SLC16A3	""	""	""	""
+MPZL3	""	""	""	""
+APOBR	""	""	""	""
