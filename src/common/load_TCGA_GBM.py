@@ -3,8 +3,8 @@ import numpy as np
 from collections import defaultdict
 import pandas as pd
 
-EXPRESSION_F = '/Users/matthewbernstein/Development/single-cell-hackathon/data/TCGA_GBM.h5'
-METADATA_F = '/Users/matthewbernstein/Development/single-cell-hackathon/data/TCGA_GBM_metadata.tsv'
+EXPRESSION_F = '/Users/matthewbernstein/Development/single-cell-hackathon/Identifying-bulk-RNA-seq-derived-biomarkers-of-cancer-risk-within-single-cell-populations/data/TCGA_GBM.h5'
+METADATA_F = '/Users/matthewbernstein/Development/single-cell-hackathon/Identifying-bulk-RNA-seq-derived-biomarkers-of-cancer-risk-within-single-cell-populations/data/TCGA_GBM_metadata.tsv'
 
 TCGA_GBM_META = pd.read_csv(METADATA_F, sep='\t')
 
