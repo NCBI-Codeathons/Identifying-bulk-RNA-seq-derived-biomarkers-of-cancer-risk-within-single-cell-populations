@@ -14,11 +14,16 @@ This readme introduces our project in the Single-Cell In the Cloud Codeathon at 
 
 Table of Content
 
-- [Background](#Background)
+- [Running our pipeline](#Running our pipeline)
 - [Workflow](#Workflow)
-- [Running our pipeline](#Running our pipeline)  
 
-# Background
+  
+
+# Running Our Pipeline
+
+```bash
+
+```
 
 
 # Workflow  
