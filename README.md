@@ -18,7 +18,7 @@ Research Associate at HHMI Janelia Research Campus
 **David	Morse**\
 PhD Student at the University of Cambridge and the National Institutes of Health
 
-**ohnny	Tran**\
+**Johnny	Tran**\
 Machine Learning & Bioinformatics PhD-In-Training at UT Arlington
 
 **David	Mayhew**\
