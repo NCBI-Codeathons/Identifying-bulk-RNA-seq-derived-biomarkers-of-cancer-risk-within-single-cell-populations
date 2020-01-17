@@ -12,7 +12,7 @@ scRNAdata = H5COUNTS('data/GSE103224.h5')
 # Preprocess data
 scRNAdata.preprocess_data(log_normalize=True, filter_genes=False, n_neighbors=False, umap=False)
 # # Add clustering results
-scRNAdata.add_clustering_results("data/interim", tumor_ids=[1, 2, 3, 4, 5, 6, 7, 8])
+scRNAdata.add_clustering_results("data/interim/", tumor_ids=[1, 2, 3, 4, 5, 6, 7, 8])
 
 gsea = GSEA_Analysis(scRNAdata, threshold=0.05,)
 # # Aggregate all cell expressions to find clusters with the biomarkers expressed

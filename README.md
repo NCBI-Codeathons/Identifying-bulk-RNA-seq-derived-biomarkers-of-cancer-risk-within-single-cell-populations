@@ -94,7 +94,7 @@ data/clustering_aligned/
 ### 4. Find differentially-expressed genes from each cluster in aligned data for 8 tumors
 After obtaining the clustering results from inetragtion of 8 tumors, we generate a list of differentially-expressed genes for each cluster. This is done by comparing a given gene against the overlap expression of the remaining clusters.   
 In this example, we test with gene TIMP4
-```
+```bash
 $ pythonw get_de_genes_cluster.py -g TIMP4
 ```
 
@@ -105,9 +105,8 @@ Then, by comparing across all tumors, we can see if there is a common GO term in
 
 To accomplish this analysis, we build a table of Adjusted P-Value (FDR rate) by running GSEA on the DE genes of every tumor-cluster pairs.
 
-```python
-from src.analysis.gsea_analysis import GSEA_Analysis
-
+```bash
+$ pythonw gsea.py SLC16A3
 ```
 
 <table border="1" class="dataframe">
