@@ -16,7 +16,7 @@ import phate
 from optparse import OptionParser
 
 # TODO THIS NEEDS TO BE CHANGED
-sys.path.append('/Users/matthewbernstein/Development/single-cell-hackathon/Identifying-bulk-RNA-seq-derived-biomarkers-of-cancer-risk-within-single-cell-populations/src/common')
+sys.path.append('src/common')
 
 DATA_F = 'GSE103224.h5'
 
