@@ -3,12 +3,12 @@ from src.common.load_h5 import H5COUNTS
 from src.preprocess.build_h5_GSE103224 import build_h5
 import pandas as pd
 
-# # Load data
-# scRNAdata = H5COUNTS('data/GSE103224.h5')
-# # Preprocess data
-# scRNAdata.preprocess_data(log_normalize=True, filter_genes=False, n_neighbors=False, umap=False)
+# Load data
+scRNAdata = H5COUNTS('data/GSE103224.h5')
+# Preprocess data
+scRNAdata.preprocess_data(log_normalize=True, filter_genes=False, n_neighbors=False, umap=False)
 # # Add clustering results
-# scRNAdata.add_clustering_results(path='data/interim/', tumor_ids=[1, 2, 3, 4, 5, 6, 7, 8])
+scRNAdata.add_clustering_results(path='data/interim/', tumor_ids=[1, 2, 3, 4, 5, 6, 7, 8])
 #
 # # Get a list of biomarkers associated to Glioma survival
 # BIOMARKER_F = "data/glioma_survival_associated_genes_Fatai.csv"
@@ -34,7 +34,7 @@ import pandas as pd
 
 def main(argv):
     try:
-        opts, args = getopt.getopt(argv, "hg:r:p:", ["ifile1=", "ifile2="])
+        opts, args = getopt.getopt(argv, "ht:c:", ["ifile1=", "ifile2="])
         print(args, opts)
 
     except getopt.GetoptError:
@@ -46,16 +46,12 @@ def main(argv):
         if opt == '-h':
             print('python run.py -g <genes> -r <resolution')
             sys.exit()
-        elif opt in ("-p", "--preprocess"):
+        elif opt in ("-t", "--tumor"):
             print('Building h5 file for {} outputing at data/GSE103224.h5'.format(arg))
             build_h5(ROOT=arg, OUT_F="data/GSE103224.h5")
 
-        elif opt in ("-p", "--preprocess"):
+        elif opt in ("-c", "--cluster"):
             pass
-        elif opt in ("-g", "--genes"):
-            inputgenelist = arg
-        elif opt in ("-r", "--resolution"):
-            clusteringres = arg
 
 
 if __name__== "__main__":
