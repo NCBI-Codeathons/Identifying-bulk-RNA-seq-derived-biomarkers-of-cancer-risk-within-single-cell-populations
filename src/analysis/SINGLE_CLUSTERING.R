@@ -42,61 +42,61 @@ for (i in 1:length(x = datasets)) {
 # find markers for every cluster compared to all remaining cells, report only the positive ones
 T1_MK_clusters <- FindAllMarkers(T1, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
 T1_MK_clusters %>% group_by(cluster) %>% top_n(n = 50, wt = avg_logFC)%>% 
-  write.csv(.,file="MK_genes_TUMOR1.csv")
+  write.csv(.,file="/data/interim/MK_genes_TUMOR1.csv")
 
 T2_MK_clusters <- FindAllMarkers(T2, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
 T2_MK_clusters %>% group_by(cluster) %>% top_n(n = 50, wt = avg_logFC)%>% 
-  write.csv(.,file="MK_genes_TUMOR2.csv")
+  write.csv(.,file="/data/interim/MK_genes_TUMOR2.csv")
 
 
 T3_MK_clusters <- FindAllMarkers(T3, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
 T3_MK_clusters %>% group_by(cluster) %>% top_n(n = 50, wt = avg_logFC)%>% 
-  write.csv(.,file="MK_genes_TUMOR3.csv")
+  write.csv(.,file="/data/interim/MK_genes_TUMOR3.csv")
 
 
 T4_MK_clusters <- FindAllMarkers(T4, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
 T4_MK_clusters %>% group_by(cluster) %>% top_n(n = 50, wt = avg_logFC)%>% 
-  write.csv(.,file="MK_genes_TUMOR4.csv")
+  write.csv(.,file="/data/interim/MK_genes_TUMOR4.csv")
 
 T5_MK_clusters <- FindAllMarkers(T5, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
 T5_MK_clusters %>% group_by(cluster) %>% top_n(n = 50, wt = avg_logFC)%>% 
-  write.csv(.,file="MK_genes_TUMOR5.csv")
+  write.csv(.,file="/data/interim/MK_genes_TUMOR5.csv")
 
 T6_MK_clusters <- FindAllMarkers(T6, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
 T6_MK_clusters %>% group_by(cluster) %>% top_n(n = 50, wt = avg_logFC)%>% 
-  write.csv(.,file="MK_genes_TUMOR6.csv")
+  write.csv(.,file="/data/interim/MK_genes_TUMOR6.csv")
 
 T7_MK_clusters <- FindAllMarkers(T7, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
 T7_MK_clusters %>% group_by(cluster) %>% top_n(n = 50, wt = avg_logFC)%>% 
-  write.csv(.,file="MK_genes_TUMOR7.csv")
+  write.csv(.,file="/data/interim/MK_genes_TUMOR7.csv")
 
 T8_MK_clusters <- FindAllMarkers(T8, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
 T8_MK_clusters %>% group_by(cluster) %>% top_n(n = 50, wt = avg_logFC)%>% 
-  write.csv(.,file="MK_genes_TUMOR8.csv")
+  write.csv(.,file="/data/interim/MK_genes_TUMOR8.csv")
 
 
 #here you do this for the meatada
 as.data.frame(T1@meta.data)%>% 
-  write.csv(.,file="T1_META.csv")
+  write.csv(.,file="/data/interim/T1_META.csv")
 
 as.data.frame(T2@meta.data)%>% 
-  write.csv(.,file="T2_META.csv")
+  write.csv(.,file="/data/interim/T2_META.csv")
 
 as.data.frame(T3@meta.data)%>% 
-  write.csv(.,file="T3_META.csv")
+  write.csv(.,file="/data/interim/T3_META.csv")
 
 as.data.frame(T4@meta.data)%>% 
-  write.csv(.,file="T4_META.csv")
+  write.csv(.,file="/data/interim/T4_META.csv")
 
 as.data.frame(T5@meta.data)%>% 
-  write.csv(.,file="T5_META.csv")
+  write.csv(.,file="/data/interim/T5_META.csv")
 
 as.data.frame(T6@meta.data)%>% 
-  write.csv(.,file="T6_META.csv")
+  write.csv(.,file="/data/interim/T6_META.csv")
 
 as.data.frame(T7@meta.data)%>% 
-  write.csv(.,file="T7_META.csv")
+  write.csv(.,file="/data/interim/T7_META.csv")
 
 as.data.frame(T8@meta.data)%>% 
-  write.csv(.,file="T8_META.csv")
+  write.csv(.,file="/data/interim/T8_META.csv")
 
