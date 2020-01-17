@@ -4,14 +4,14 @@ library(Seurat)
 
 #here we are opening all of the individual runs up to MARCH152019.. these are all 20 male brains
 
-tumor1 <- Read10X(data.dir = "C:/Users/correap/Documents/codehakaton/GSM2758471", gene.column = 1)
-tumor2 <- Read10X(data.dir = "C:/Users/correap/Documents/codehakaton/GSM2758472", gene.column = 1)
-tumor3 <- Read10X(data.dir = "C:/Users/correap/Documents/codehakaton/GSM2758473", gene.column = 1)
-tumor4 <- Read10X(data.dir = "C:/Users/correap/Documents/codehakaton/GSM2758474", gene.column = 1)
-tumor5 <- Read10X(data.dir = "C:/Users/correap/Documents/codehakaton/GSM2758475", gene.column = 1)
-tumor6 <- Read10X(data.dir = "C:/Users/correap/Documents/codehakaton/GSM2758476", gene.column = 1)
-tumor7 <- Read10X(data.dir = "C:/Users/correap/Documents/codehakaton/GSM2758477", gene.column = 1)
-tumor8 <- Read10X(data.dir = "C:/Users/correap/Documents/codehakaton/GSM2758478", gene.column = 1)
+tumor1 <- Read10X(data.dir = "GSM2758471", gene.column = 1)
+tumor2 <- Read10X(data.dir = "GSM2758472", gene.column = 1)
+tumor3 <- Read10X(data.dir = "GSM2758473", gene.column = 1)
+tumor4 <- Read10X(data.dir = "GSM2758474", gene.column = 1)
+tumor5 <- Read10X(data.dir = "GSM2758475", gene.column = 1)
+tumor6 <- Read10X(data.dir = "GSM2758476", gene.column = 1)
+tumor7 <- Read10X(data.dir = "GSM2758477", gene.column = 1)
+tumor8 <- Read10X(data.dir = "GSM2758478", gene.column = 1)
 
 #Create objects
 
@@ -25,7 +25,7 @@ T6 <- CreateSeuratObject(counts = tumor6, project = "R6", min.cells = 3,min.feat
 T7 <- CreateSeuratObject(counts = tumor7, project = "R7", min.cells = 3,min.features = 200)
 T8 <- CreateSeuratObject(counts = tumor8, project = "R8", min.cells = 3,min.features = 200)
 
-
+datasets <- list(T1,T2,T3,T4,T5,T6,T7,T8)
 
 #here you can run all of the functions that we have  
 for (i in 1:length(x = datasets)) {
