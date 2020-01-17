@@ -80,14 +80,14 @@ scRNAdata.preprocess_data(log_normalize=True, filter_genes=False, n_neighbors=Fa
 ### 3. Data Clustering  
 We performed gene/cell filtering and clustering on the filtered expression matrix using Seurat. 
 ```bash
-
+$ Done in Seurat
 ```
 Save the clustering results
 
 ### 4. Find differentially-expressed genes from each cluster (for each tumor)
 After obtaining the clustering results, we generate a list of differentially-expressed genes for each cluster against all other clusters.
 ```
-
+$ pythonw get_de_genes_cluster.py -g TIMP4
 ```
 
 ### 5. Perform Gene Set Enrichment Analysis on the DE genes for all clusters
