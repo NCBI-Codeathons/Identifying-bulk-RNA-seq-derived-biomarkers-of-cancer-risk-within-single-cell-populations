@@ -73,7 +73,7 @@ $ python run.py --preprocess
 ```
 
 ### 3. Data Clustering  
-We performed gene/cell filtering and clustering on the filtered expression matrix using Seurat. 
+We performed gene/cell filtering and clustering on the filtered expression matrix using Seurat. The resolution used for clustering was eiather 0.8 (single tumor) and 1 (integrated data).
 ```bash
 $ Done in Seurat
 ```
