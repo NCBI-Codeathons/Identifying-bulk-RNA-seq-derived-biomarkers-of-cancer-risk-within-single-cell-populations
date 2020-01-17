@@ -30,7 +30,7 @@ def main(argv):
         print("Error: Missing input")
         sys.exit(3)
         
-    #convert input sequences into bytes
+    #split the input of gene names
     sgenes = inputgenelist.split(",")
     print(sgenes)
     
