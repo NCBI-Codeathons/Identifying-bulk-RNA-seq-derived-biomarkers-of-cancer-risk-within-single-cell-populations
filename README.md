@@ -231,4 +231,4 @@ Given the user's biomarker of interest they want to explore, we can identify the
 
 ### 7. Gene sets enriched for clusters with SLC16A3 expressed
 
-![SLC16A3_GSEA](/Users/jonny/Downloads/SLC16A3_GSEA.png)
+![SLC16A3_GSEA](reports/SLC16A3_GSEA.png)
