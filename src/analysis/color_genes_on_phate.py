@@ -29,7 +29,7 @@ TUMORS = [
     'PJ032'
 ]
 
-def main():
+def color_genes_on_phate(input_genes):
     sc.settings.verbosity = 3
     sc.logging.print_versions()
     sc.settings.set_figure_params(dpi=80)
@@ -57,13 +57,13 @@ def main():
 
         out_dir = join(tumor, 'cell_type_markers')
         os.system('mkdir -p {}'.format(out_dir))
-        genes = ['OLIG1', 'MOG', 'STMN2', 'GFAP']
+        genes = input_genes
         _create_plots(ad, out_dir, genes)
 
-        out_dir = join(tumor, '6_survival_markers') 
-        os.system('mkdir -p {}'.format(out_dir))
-        genes = ['SLC16A3', 'MAP2K3', 'CD79B', 'IMPDH1', 'MPZL3', 'APOBR']
-        _create_plots(ad, out_dir, genes)
+        #out_dir = join(tumor, '6_survival_markers') 
+        #os.system('mkdir -p {}'.format(out_dir))
+        #genes = ['SLC16A3', 'MAP2K3', 'CD79B', 'IMPDH1', 'MPZL3', 'APOBR']
+        #_create_plots(ad, out_dir, genes)
 
 def _create_plots(ad, out_dir, genes):
     for gene in genes:
@@ -83,8 +83,4 @@ def _create_plots(ad, out_dir, genes):
             dpi=150
             #bbox_inches='tight'
         )
-
-
-if __name__ == '__main__':
-    main()
 
