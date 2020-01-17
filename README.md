@@ -9,19 +9,19 @@ Some questions we could try to answer:
 - Do these 8 tumors differ in regards to the distribution of these "dangerous" cell populations
 
 ## Team
-### Matthew	Bernstein (Lead)\
+**Matthew	Bernstein (Lead)**\
 Postdoctoral Fellow at Morgridge Institute for Research\
 
-### Paola	Correa\
+**Paola	Correa**\
 Research Associate at HHMI Janelia Research Campus
 
-### David	Morse\
+**David	Morse**\
 PhD Student at the University of Cambridge and the National Institutes of Health
 
-### Johnny	Tran\
+**ohnny	Tran**\
 Machine Learning & Bioinformatics PhD-In-Training at UT Arlington
 
-### David	Mayhew\
+**David	Mayhew**\
 Computational Bioligist at GlaxoSmithKline in Philadelphia PA
 
 
