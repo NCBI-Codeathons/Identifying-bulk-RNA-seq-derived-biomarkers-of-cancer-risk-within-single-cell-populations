@@ -40,6 +40,8 @@ def main():
     (options, args) = parser.parse_args()
     
     data_root = args[0]
+    cancer_biomarker = args[1]
+    cell_type_biomarkers = args[2].split(',')
     out_dir = options.out_dir
 
     sc.settings.verbosity = 3
@@ -80,6 +82,7 @@ def main():
             ]
         )
 
+        # Color points by cluster
         fig, ax = plt.subplots(1,1,figsize=(8,6))
         ax = sc.pl.scatter(
             ad_filt, 
@@ -101,6 +104,32 @@ def main():
             dpi=150
             #bbox_inches='tight'
         )
+
+        # Color by genes
+        genes = [cancer_biomarker] + cell_type_biomarkers
+        for gene in genes:
+            fig, ax = plt.subplots(1,1,figsize=(8,6))
+            ax = sc.pl.scatter(
+                ad_filt,
+                x='PHATE 1',
+                y='PHATE 2',
+                color=gene,
+                ax=ax,
+                legend_loc='right margin',
+                show=False
+            )
+            ax.set_xticks([])
+            ax.set_yticks([])
+            l, b, w, h = fig.axes[-1].get_position().bounds
+            ll, bb, ww, hh = fig.axes[0].get_position().bounds
+            plt.tight_layout()
+            fig.savefig(
+                join(out_dir, '{}_color_by_{}.png'.format(tumor, gene)),
+                format='png',
+                dpi=150
+                #bbox_inches='tight'
+            )
+
     
 if __name__ == '__main__':
     main()
