@@ -11,5 +11,6 @@ def keep_genes(X, genes, keep_genes):
     indices = [
         gene_to_index[gene]
         for gene in keep_genes
+        if gene in gene_to_index
     ]
     return X[:,indices]
