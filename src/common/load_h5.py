@@ -44,7 +44,7 @@ class H5COUNTS():
         self.id2tumor = {tumor_id + 1: tumor for tumor_id, tumor in enumerate(self.TUMORS)}
 
 
-    def preprocess_data(self):
+    def preprocess_data(self, log_normalize=True, filter_genes=False, n_neighbors=False, umap=False):
         self.tumor_to_ad = {}
         for tumor in self.TUMORS:
             print(tumor)
@@ -58,8 +58,19 @@ class H5COUNTS():
                     columns=['gene_name']
                 )
             )
-            sc.pp.normalize_total(ad, target_sum=1e6)
-            sc.pp.log1p(ad)
+            if log_normalize:
+                sc.pp.normalize_total(ad, target_sum=1e6)
+                sc.pp.log1p(ad)
+
+            if filter_genes:
+                sc.pp.filter_genes(ad, min_cells=3, min_counts=200)
+
+            if n_neighbors:
+                sc.pp.neighbors(ad)
+
+            if umap:
+                sc.tl.umap(ad)
+
             ad.X = pd.DataFrame(ad.X, index=cells, columns=self.GENE_NAMES)
             self.tumor_to_ad[tumor] = ad
 
