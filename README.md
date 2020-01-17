@@ -1,4 +1,4 @@
-# Identifying bulk RNA-seq derived-biomarkers of cancer risk within single-cell populations
+# Comb: A pipeline for identifying bulk RNA-seq derived-biomarkers of cancer risk within single-cell populations
 
 We aim to explore cells that express risk-conferring biomarkers, for example, from this paper: https://www.nature.com/articles/s41598-019-39273-4
 
