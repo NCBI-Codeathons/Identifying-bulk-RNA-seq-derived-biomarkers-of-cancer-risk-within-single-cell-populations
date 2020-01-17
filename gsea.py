@@ -44,7 +44,7 @@ def main(argv):
 
     for opt, arg in opts:
         if opt == '-h':
-            print('python get_de_genes.py -g <genes>')
+            print('python gsea.py -g <genes, e.g. SLC16A3,FZD3> -o <output_file_path>')
             sys.exit()
         elif opt in ("-g", "--genes"):
             biomarker = arg
@@ -52,15 +52,10 @@ def main(argv):
         elif opt in ("-o", "--output"):
             output = arg
 
-    scRNAdata.get_aggregated_cluster_expression(biomarker, groupby=["cluster"], quantile_threshold=0.75)
-    cluster_id = scRNAdata.cluster_exp_quantile[scRNAdata.cluster_exp_quantile > 0.0].index
-
-    de_genes = scRNAdata.get_de_genes_by_cluster(int(cluster_id[0]))
-    print(de_genes)
-
-    heatmap(gsea.get_gsea_result().T, file_output=output)
-    return de_genes
-
+    scRNAdata.get_aggregated_cluster_expression(biomarker if type(biomarker) == list else [biomarker], )
+    result = gsea.get_gsea_result_by_cluster(scRNAdata.get_clusters_with_biomarker_expression(biomarker))
+    heatmap(result, file_output=output)
+    print("File output to", output)
 
 if __name__== "__main__":
     main(sys.argv[1:])

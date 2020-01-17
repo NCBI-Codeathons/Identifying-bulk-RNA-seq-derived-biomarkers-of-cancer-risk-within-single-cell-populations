@@ -42,7 +42,7 @@ Table of Content
 To install our pipeline and all dependencies, run
 
 ```bash
-pip install 
+pip install git+https://github.com/NCBI-Codeathons/Identifying-bulk-RNA-seq-derived-biomarkers-of-cancer-risk-within-single-cell-populations
 ```
 
 
@@ -68,13 +68,8 @@ $ src/preprocess/build_h5_GSE103224.py
 ### 2. Data Preprocessing  
 Two workflows were used, where R processes the .mtx file and Python processes the .h5 file, using Seurat and Scanpy, respectively.
 
-```python
-from src.common.load_h5 import H5COUNTS
-
-# Load data
-scRNAdata = H5COUNTS('data/GSE103224.h5')
-# Preprocess data
-scRNAdata.preprocess_data(log_normalize=True, filter_genes=False, n_neighbors=False, umap=False)
+```bash
+$ python run.py --preprocess
 ```
 
 ### 3. Data Clustering  
@@ -85,7 +80,7 @@ $ Done in Seurat
 Save the clustering results
 
 ### 4. Find differentially-expressed genes from each cluster (for each tumor)
-After obtaining the clustering results, we generate a list of differentially-expressed genes for each cluster against all other clusters.
+After obtaining the clustering results, we generate a list of differentially-expressed genes for each cluster against all other clusters. In this example, we test with gene TIMP4
 ```
 $ pythonw get_de_genes_cluster.py -g TIMP4
 ```
@@ -98,6 +93,7 @@ Then, by comparing across all tumors, we can see if there is a common GO term in
 To accomplish this analysis, we build a table of Adjusted P-Value (FDR rate) by running GSEA on the DE genes of every tumor-cluster pairs.
 
 ```python
+from src.analysis.gsea_analysis import GSEA_Analysis
 
 ```
 

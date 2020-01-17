@@ -44,16 +44,11 @@ def main(argv):
 
     for opt, arg in opts:
         if opt == '-h':
-            print('python run.py -g <genes> -r <resolution')
+            print('python run.py -p')
             sys.exit()
         elif opt in ("-p", "--preprocess"):
             print('Building h5 file for {} outputing at data/GSE103224.h5'.format(arg))
             build_h5(ROOT=arg, OUT_F="data/GSE103224.h5")
-
-        elif opt in ("-g", "--genes"):
-            inputgenelist = arg
-        elif opt in ("-r", "--resolution"):
-
 
 
 if __name__== "__main__":
