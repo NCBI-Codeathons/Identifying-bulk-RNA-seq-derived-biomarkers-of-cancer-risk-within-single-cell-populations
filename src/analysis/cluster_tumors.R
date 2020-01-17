@@ -9,22 +9,22 @@ DATA_DIR = args[1]
 TMP_DIR = args[2]
 
 # test if there is at least one argument: if not, return an error
-if (length(args)==0) {
-  USER_SET_CLUS_RES = 0.8
-} else {
-  USER_SET_CLUS_RES = args[3]
-}
+#if (length(args)==0) {
+USER_SET_CLUS_RES = 0.8
+#} else {
+#  USER_SET_CLUS_RES = as.numeric(args[3])
+#}
 
 #here we are opening all of the individual runs up to MARCH152019.. these are all 20 male brains
 
-tumor1 <- Read10X(data.dir = paste0(DATA_DIR, "/GSE103224_10X/GSM2758471"), gene.column = 1)
-tumor2 <- Read10X(data.dir = paste0(DATA_DIR, "/GSE103224_10X/GSM2758472"), gene.column = 1)
-tumor3 <- Read10X(data.dir = paste0(DATA_DIR, "/GSE103224_10X/GSM2758473"), gene.column = 1)
-tumor4 <- Read10X(data.dir = paste0(DATA_DIR, "/GSE103224_10X/GSM2758474"), gene.column = 1)
-tumor5 <- Read10X(data.dir = paste0(DATA_DIR, "/GSE103224_10X/GSM2758475"), gene.column = 1)
-tumor6 <- Read10X(data.dir = paste0(DATA_DIR, "/GSE103224_10X/GSM2758476"), gene.column = 1)
-tumor7 <- Read10X(data.dir = paste0(DATA_DIR, "/GSE103224_10X/GSM2758477"), gene.column = 1)
-tumor8 <- Read10X(data.dir = paste0(DATA_DIR, "/GSE103224_10X/GSM2758478"), gene.column = 1)
+tumor1 <- Read10X(data.dir = paste0(DATA_DIR, "/GSM2758471"), gene.column = 1)
+tumor2 <- Read10X(data.dir = paste0(DATA_DIR, "/GSM2758472"), gene.column = 1)
+tumor3 <- Read10X(data.dir = paste0(DATA_DIR, "/GSM2758473"), gene.column = 1)
+tumor4 <- Read10X(data.dir = paste0(DATA_DIR, "/GSM2758474"), gene.column = 1)
+tumor5 <- Read10X(data.dir = paste0(DATA_DIR, "/GSM2758475"), gene.column = 1)
+tumor6 <- Read10X(data.dir = paste0(DATA_DIR, "/GSM2758476"), gene.column = 1)
+tumor7 <- Read10X(data.dir = paste0(DATA_DIR, "/GSM2758477"), gene.column = 1)
+tumor8 <- Read10X(data.dir = paste0(DATA_DIR, "/GSM2758478"), gene.column = 1)
 
 #Create objects
 
@@ -51,6 +51,14 @@ for (i in 1:length(x = datasets)) {
   datasets[[i]] <- FindClusters(datasets[[i]], dims = 1:30, resolution = USER_SET_CLUS_RES)
 }
 
+T1 <- datasets[[1]]
+T2 <- datasets[[2]]
+T3 <- datasets[[3]]
+T4 <- datasets[[4]]
+T5 <- datasets[[5]]
+T6 <- datasets[[6]]
+T7 <- datasets[[7]]
+T8 <- datasets[[8]]
 
 # find markers for every cluster compared to all remaining cells, report only the positive ones
 T1_MK_clusters <- FindAllMarkers(T1, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
@@ -61,11 +69,9 @@ T2_MK_clusters <- FindAllMarkers(T2, only.pos = TRUE, min.pct = 0.25, logfc.thre
 T2_MK_clusters %>% group_by(cluster) %>% top_n(n = 50, wt = avg_logFC)%>% 
   write.csv(.,file=paste0(TMP_DIR, "MK_genes_TUMOR2.csv"))
 
-
 T3_MK_clusters <- FindAllMarkers(T3, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
 T3_MK_clusters %>% group_by(cluster) %>% top_n(n = 50, wt = avg_logFC)%>% 
   write.csv(.,file=paste0(TMP_DIR, "MK_genes_TUMOR3.csv"))
-
 
 T4_MK_clusters <- FindAllMarkers(T4, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
 T4_MK_clusters %>% group_by(cluster) %>% top_n(n = 50, wt = avg_logFC)%>% 
@@ -86,7 +92,6 @@ T7_MK_clusters %>% group_by(cluster) %>% top_n(n = 50, wt = avg_logFC)%>%
 T8_MK_clusters <- FindAllMarkers(T8, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
 T8_MK_clusters %>% group_by(cluster) %>% top_n(n = 50, wt = avg_logFC)%>% 
   write.csv(.,file=paste0(TMP_DIR, "MK_genes_TUMOR8.csv"))
-
 
 #here you do this for the meatada
 as.data.frame(T1@meta.data)%>% 
