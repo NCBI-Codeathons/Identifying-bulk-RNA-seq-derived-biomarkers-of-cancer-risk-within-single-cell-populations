@@ -7,18 +7,23 @@ library(DropletUtils)
 library(data.table)
 library(ggplot2)
 library(cowplot)
-setwd("/Users/morsedb/Documents/Projects/NYGC_hack2020/NYGC_biomarkers")
 #tumors.integrated <- readRDS(file = "output/tumors_integrated/tumors_integrated.rds")
 
+#get arguments
+args = commandArgs(trailingOnly=TRUE)
+
+DATA_DIR = args[1]
+TMP_DIR = args[2]
+
 #read in raw sequencing data as sparse MTX matrix
-T1 <- Read10X("data/sc_hg_glioma/dense_matrices/GSM2758471", gene.column = 1)
-T2 <- Read10X("data/sc_hg_glioma/dense_matrices/GSM2758472", gene.column = 1)
-T3 <- Read10X("data/sc_hg_glioma/dense_matrices/GSM2758473", gene.column = 1)
-T4 <- Read10X("data/sc_hg_glioma/dense_matrices/GSM2758474", gene.column = 1)
-T5 <- Read10X("data/sc_hg_glioma/dense_matrices/GSM2758475", gene.column = 1)
-T6 <- Read10X("data/sc_hg_glioma/dense_matrices/GSM2758476", gene.column = 1)
-T7 <- Read10X("data/sc_hg_glioma/dense_matrices/GSM2758477", gene.column = 1)
-T8 <- Read10X("data/sc_hg_glioma/dense_matrices/GSM2758478", gene.column = 1)
+T1 <- Read10X(paste0(DATA_DIR, "/GSM2758471"), gene.column = 1)
+T2 <- Read10X(paste0(DATA_DIR, "/GSM2758472"), gene.column = 1)
+T3 <- Read10X(paste0(DATA_DIR, "/GSM2758473"), gene.column = 1)
+T4 <- Read10X(paste0(DATA_DIR, "/GSM2758474"), gene.column = 1)
+T5 <- Read10X(paste0(DATA_DIR, "/GSM2758475"), gene.column = 1)
+T6 <- Read10X(paste0(DATA_DIR, "/GSM2758476"), gene.column = 1)
+T7 <- Read10X(paste0(DATA_DIR, "/GSM2758477"), gene.column = 1)
+T8 <- Read10X(paste0(DATA_DIR, "/GSM2758478"), gene.column = 1)
 
 #list for piping
 datasets <- list(T1,T2,T3,T4,T5,T6,T7,T8)
@@ -56,9 +61,9 @@ saveRDS(tumors.integrated, file = "output/tumors_integrated.rds")
 
 #export scaled data as csv
 integrated_data_output <- as.data.frame(as.matrix(tumors.integrated@assays$integrated@scale.data))
-fwrite(integrated_data_output, row.names = TRUE, file = "output/tumors_integrated/integrated_scaled.csv")
+fwrite(integrated_data_output, row.names = TRUE, file = paste0(TMP_DIR, "integrated_scaled.csv"))
 #export meta data
-write.csv(tumors.integrated@meta.data, 'output/tumors_integrated/metadata.csv')
+write.csv(tumors.integrated@meta.data, paste0(TMP_DIR, 'integrated_metadata.csv'))
 
 
 
