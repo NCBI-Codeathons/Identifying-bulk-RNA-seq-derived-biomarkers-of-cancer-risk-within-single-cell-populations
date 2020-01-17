@@ -14,11 +14,16 @@ This readme introduces our project in the Single-Cell In the Cloud Codeathon at 
 
 Table of Content
 
-- [Background](#Background)
+- [Running our pipeline](#Running our pipeline)
 - [Workflow](#Workflow)
-- [Requirements](#Requirements)  
 
-# Background
+  
+
+# Running Our Pipeline
+
+```bash
+
+```
 
 
 # Workflow  
@@ -26,19 +31,170 @@ Our data consisted of single-cell RNA-seq from 8 high-grade glioma patients from
 
 ### 1. Data Acquision  
 
-1. The scRNA-seq raw data was downloaded from GSE103224. It contains 8 tumor datasets with each having a few thousand cells and ~60,000 RNA expressions.
-2. Convert the raw data format to .mtx file and a .h5 file.
+1. The scRNA-seq raw data was downloaded from GSE103224. It contains 8 tumor datasets with each having a few thousand cells and ~60,000 RNA expressions. The raw data should be placed in
+```
+data/GSE103224_RAW.tar
+```
+2. Uncompress the file into the folder
+
+```
+data/GSE103224_RAW
+```
+3. Convert the raw data format to .mtx file and a .h5 file. For python, run the following in command line
+```
+$ src/preprocess/build_h5_GSE103224.py
+```
 
 ### 2. Data Preprocessing  
 Two workflows were used, where R processes the .mtx file and Python processes the .h5 file, using Seurat and Scanpy, respectively.
-1. 
+
+```python
+from src.common.load_h5 import H5COUNTS
+
+# Load data
+scRNAdata = H5COUNTS('data/GSE103224.h5')
+# Preprocess data
+scRNAdata.preprocess_data(log_normalize=True, filter_genes=False, n_neighbors=False, umap=False)
+```
 
 ### 3. Data Clustering  
+We performed gene/cell filtering and clustering on the filtered expression matrix using Seurat. 
+```bash
 
-Three methods were implemented and compared: 
+```
+Save the clustering results
 
-1. K-means clustering
-2. Spectral clustering (nearest-neighbor and Gaussian similarity kernels)
-3. Hierarchical clustering
+### 4. Find differentially-expressed genes from each cluster (for each tumor)
+After obtaining the clustering results, we generate a list of differentially-expressed genes for each cluster against all other clusters.
+```
 
-### 3. Classifying New Data
+```
+
+### 5. Perform Gene Set Enrichment Analysis on the DE genes for all clusters
+We want to identify whether certain cell clusters have some GO terms enriched. Then, by comparing across all tumors, we can see if there is a common GO term involved in at least one cluster. To accomplish this analysis, we build a table of Adjusted P-Value (FDR rate) by running GSEA on the DE genes of every tumor-cluster pairs.
+```python
+
+```
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>cellular response to copper ion (GO:0071280)</th>
+      <th>response to copper ion (GO:0046688)</th>
+      <th>cellular response to zinc ion (GO:0071294)</th>
+      <th>cellular response to cadmium ion (GO:0071276)</th>
+      <th>cellular zinc ion homeostasis (GO:0006882)</th>
+    </tr>
+    <tr>
+      <th>tumor</th>
+      <th>cluster</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="5" valign="top">PJ016</th>
+      <th>0</th>
+      <td>0.000008</td>
+      <td>0.000010</td>
+      <td>0.000222</td>
+      <td>0.001000</td>
+      <td>0.001056</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th rowspan="5" valign="top">PJ048</th>
+      <th>5</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.008055</td>
+      <td>0.011066</td>
+      <td>0.007067</td>
+      <td>0.015403</td>
+      <td>0.016894</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>71 rows × 5 columns</p>
+
+
+
+### 6. Find certain clusters which have cells expressing a biomarker of interest
+
+Given the user's biomarker of interest they want to explore, we can identify the clusters which have cells expressing this biomarker. Then, they can look at the gene sets enriched by these clusters.
