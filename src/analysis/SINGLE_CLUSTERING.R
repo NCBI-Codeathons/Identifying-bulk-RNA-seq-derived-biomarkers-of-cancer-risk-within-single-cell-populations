@@ -14,14 +14,14 @@ if (length(args)==0) {
 
 #here we are opening all of the individual runs up to MARCH152019.. these are all 20 male brains
 
-tumor1 <- Read10X(data.dir = "GSM2758471", gene.column = 1)
-tumor2 <- Read10X(data.dir = "GSM2758472", gene.column = 1)
-tumor3 <- Read10X(data.dir = "GSM2758473", gene.column = 1)
-tumor4 <- Read10X(data.dir = "GSM2758474", gene.column = 1)
-tumor5 <- Read10X(data.dir = "GSM2758475", gene.column = 1)
-tumor6 <- Read10X(data.dir = "GSM2758476", gene.column = 1)
-tumor7 <- Read10X(data.dir = "GSM2758477", gene.column = 1)
-tumor8 <- Read10X(data.dir = "GSM2758478", gene.column = 1)
+tumor1 <- Read10X(data.dir = "data/GSE103224_10X/GSM2758471", gene.column = 1)
+tumor2 <- Read10X(data.dir = "data/GSE103224_10X/GSM2758472", gene.column = 1)
+tumor3 <- Read10X(data.dir = "data/GSE103224_10X/GSM2758473", gene.column = 1)
+tumor4 <- Read10X(data.dir = "data/GSE103224_10X/GSM2758474", gene.column = 1)
+tumor5 <- Read10X(data.dir = "data/GSE103224_10X/GSM2758475", gene.column = 1)
+tumor6 <- Read10X(data.dir = "data/GSE103224_10X/GSM2758476", gene.column = 1)
+tumor7 <- Read10X(data.dir = "data/GSE103224_10X/GSM2758477", gene.column = 1)
+tumor8 <- Read10X(data.dir = "data/GSE103224_10X/GSM2758478", gene.column = 1)
 
 #Create objects
 
@@ -52,61 +52,61 @@ for (i in 1:length(x = datasets)) {
 # find markers for every cluster compared to all remaining cells, report only the positive ones
 T1_MK_clusters <- FindAllMarkers(T1, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
 T1_MK_clusters %>% group_by(cluster) %>% top_n(n = 50, wt = avg_logFC)%>% 
-  write.csv(.,file="../data/interim/MK_genes_TUMOR1.csv")
+  write.csv(.,file="data/interim/MK_genes_TUMOR1.csv")
 
 T2_MK_clusters <- FindAllMarkers(T2, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
 T2_MK_clusters %>% group_by(cluster) %>% top_n(n = 50, wt = avg_logFC)%>% 
-  write.csv(.,file="../data/interim/MK_genes_TUMOR2.csv")
+  write.csv(.,file="data/interim/MK_genes_TUMOR2.csv")
 
 
 T3_MK_clusters <- FindAllMarkers(T3, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
 T3_MK_clusters %>% group_by(cluster) %>% top_n(n = 50, wt = avg_logFC)%>% 
-  write.csv(.,file="../data/interim/MK_genes_TUMOR3.csv")
+  write.csv(.,file="data/interim/MK_genes_TUMOR3.csv")
 
 
 T4_MK_clusters <- FindAllMarkers(T4, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
 T4_MK_clusters %>% group_by(cluster) %>% top_n(n = 50, wt = avg_logFC)%>% 
-  write.csv(.,file="../data/interim/MK_genes_TUMOR4.csv")
+  write.csv(.,file="data/interim/MK_genes_TUMOR4.csv")
 
 T5_MK_clusters <- FindAllMarkers(T5, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
 T5_MK_clusters %>% group_by(cluster) %>% top_n(n = 50, wt = avg_logFC)%>% 
-  write.csv(.,file="../data/interim/MK_genes_TUMOR5.csv")
+  write.csv(.,file="data/interim/MK_genes_TUMOR5.csv")
 
 T6_MK_clusters <- FindAllMarkers(T6, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
 T6_MK_clusters %>% group_by(cluster) %>% top_n(n = 50, wt = avg_logFC)%>% 
-  write.csv(.,file="../data/interim/MK_genes_TUMOR6.csv")
+  write.csv(.,file="data/interim/MK_genes_TUMOR6.csv")
 
 T7_MK_clusters <- FindAllMarkers(T7, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
 T7_MK_clusters %>% group_by(cluster) %>% top_n(n = 50, wt = avg_logFC)%>% 
-  write.csv(.,file="../data/interim/MK_genes_TUMOR7.csv")
+  write.csv(.,file="data/interim/MK_genes_TUMOR7.csv")
 
 T8_MK_clusters <- FindAllMarkers(T8, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
 T8_MK_clusters %>% group_by(cluster) %>% top_n(n = 50, wt = avg_logFC)%>% 
-  write.csv(.,file="../data/interim/MK_genes_TUMOR8.csv")
+  write.csv(.,file="data/interim/MK_genes_TUMOR8.csv")
 
 
 #here you do this for the meatada
 as.data.frame(T1@meta.data)%>% 
-  write.csv(.,file="../data/interim/T1_META.csv")
+  write.csv(.,file="data/interim/T1_META.csv")
 
 as.data.frame(T2@meta.data)%>% 
-  write.csv(.,file="../data/interim/T2_META.csv")
+  write.csv(.,file="data/interim/T2_META.csv")
 
 as.data.frame(T3@meta.data)%>% 
-  write.csv(.,file="../data/interim/T3_META.csv")
+  write.csv(.,file="data/interim/T3_META.csv")
 
 as.data.frame(T4@meta.data)%>% 
-  write.csv(.,file="../data/interim/T4_META.csv")
+  write.csv(.,file="data/interim/T4_META.csv")
 
 as.data.frame(T5@meta.data)%>% 
-  write.csv(.,file="../data/interim/T5_META.csv")
+  write.csv(.,file="data/interim/T5_META.csv")
 
 as.data.frame(T6@meta.data)%>% 
-  write.csv(.,file="../data/interim/T6_META.csv")
+  write.csv(.,file="data/interim/T6_META.csv")
 
 as.data.frame(T7@meta.data)%>% 
-  write.csv(.,file="../data/interim/T7_META.csv")
+  write.csv(.,file="data/interim/T7_META.csv")
 
 as.data.frame(T8@meta.data)%>% 
-  write.csv(.,file="../data/interim/T8_META.csv")
+  write.csv(.,file="data/interim/T8_META.csv")
 
