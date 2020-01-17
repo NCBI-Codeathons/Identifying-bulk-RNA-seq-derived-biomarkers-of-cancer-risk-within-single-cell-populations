@@ -8,7 +8,14 @@ Some questions we could try to answer:
 - Can we characterize these "dangerous" cell populations? (e.g. do they look like some known normal cell type)
 - Do these 8 tumors differ in regards to the distribution of these "dangerous" cell populations
 
-Team Lead: 
+## Team
+Matthew	Bernstein (Lead)
+Paola	Correa
+David	Morse
+Johnny	Tran
+David	Mayhew
+
+
 
 Team Members: 
 
