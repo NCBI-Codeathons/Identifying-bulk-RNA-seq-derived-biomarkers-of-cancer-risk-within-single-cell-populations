@@ -50,12 +50,10 @@ def main(argv):
             print('Building h5 file for {} outputing at data/GSE103224.h5'.format(arg))
             build_h5(ROOT=arg, OUT_F="data/GSE103224.h5")
 
-        elif opt in ("-p", "--preprocess"):
-            pass
         elif opt in ("-g", "--genes"):
             inputgenelist = arg
         elif opt in ("-r", "--resolution"):
-            clusteringres = arg
+
 
 
 if __name__== "__main__":

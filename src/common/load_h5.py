@@ -1,4 +1,5 @@
 import h5py
+import os
 import numpy as np
 from collections import defaultdict
 import pandas as pd
@@ -46,7 +47,6 @@ class H5COUNTS():
     def preprocess_data(self, log_normalize=True, filter_genes=False, n_neighbors=False, umap=False):
         self.tumor_to_ad = {}
         for tumor in self.TUMORS:
-            print(tumor)
             counts, cells = self.counts_matrix_for_tumor(tumor)
             ad = AnnData(
                 X=counts,
@@ -91,16 +91,29 @@ class H5COUNTS():
     def add_clustering_results(self, path="data/interim/", tumor_ids=[1, 2, 3, 4, 5, 6, 7, 8]):
         self.tumor_cell_cluster = pd.DataFrame(columns=["tumor", "cell", "cluster"])
 
-        for tumor in tumor_ids:
-            cell_cluster = pd.read_csv(path+"T{}_META.csv".format(tumor))
+        if os.path.isfile(path):
+            df = pd.read_csv(path)
+            df.rename(columns={
+                "Unnamed: 0": "cell",
+                "new.ident": "tumor",
+                "integrated_snn_res.0.8": "cluster"
+            }, inplace=True)
+            df["tumor"] = df["tumor"].str.split("t", expand=True)[1]
+            df["tumor"] = df["tumor"].apply(lambda x: self.id2tumor[int(x)])
+            df["cell"] = (df["cell"].str.split("_", expand=True)[1].astype(int) - 1).astype(str)
+            self.tumor_cell_cluster = self.tumor_cell_cluster.append(df[["tumor", "cell", "cluster"]])
 
-            cell_cluster.rename(columns={"Unnamed: 0": "cell", "RNA_snn_res.0.8": "cluster"},
-                                inplace=True)
-            cell_cluster["cell"] = cell_cluster["cell"].str.split("_", expand=True)[1].astype(int) - 1
-            cell_cluster["cell"] = cell_cluster["cell"].astype(str)
-            cell_cluster["tumor"] = self.id2tumor[tumor]
+        else:
+            for tumor in tumor_ids:
+                cell_cluster = pd.read_csv(path+"T{}_META.csv".format(tumor))
 
-            self.tumor_cell_cluster = self.tumor_cell_cluster.append(cell_cluster[["tumor", "cell", "cluster"]])
+                cell_cluster.rename(columns={"Unnamed: 0": "cell", "RNA_snn_res.0.8": "cluster"},
+                                    inplace=True)
+                cell_cluster["cell"] = cell_cluster["cell"].str.split("_", expand=True)[1].astype(int) - 1
+                cell_cluster["cell"] = cell_cluster["cell"].astype(str)
+                cell_cluster["tumor"] = self.id2tumor[tumor]
+
+                self.tumor_cell_cluster = self.tumor_cell_cluster.append(cell_cluster[["tumor", "cell", "cluster"]])
 
 
         self.tumor_cell_cluster["cluster"] = self.tumor_cell_cluster["cluster"].astype(str)
@@ -113,17 +126,23 @@ class H5COUNTS():
         for tumor in tumor_ids:
             self.tumor_to_ad[self.id2tumor[tumor]].obs = self.tumor_to_ad[self.id2tumor[tumor]].obs.join(tumor_cell_cluster_df, on="cell")
 
-    def get_aggregated_cluster_expression(self, biomarkers:list, quantile_threshold=0.75):
+    def get_aggregated_cluster_expression(self, biomarkers:list, groupby=["tumor", "cluster"], quantile_threshold=0.75):
         all_tumor_cell_biomarkers = self.all_tumor_df[biomarkers]
         cluster_exp = pd.merge(all_tumor_cell_biomarkers, self.tumor_cell_cluster, on=["tumor", "cell"]) \
             .reset_index().set_index(["tumor", "cell", "cluster"])
-        self.cluster_exp_quantile = cluster_exp.groupby(["tumor", "cluster"])[biomarkers].quantile(quantile_threshold)
+        self.cluster_exp_quantile = cluster_exp.groupby(groupby)[biomarkers].quantile(quantile_threshold)
         return self.cluster_exp_quantile
 
+    def get_de_genes_by_cluster(self, cluster, path="data/clustering_aligned/MK_genes_TUMORS_integrated.csv"):
+        if ~hasattr(self, "de_genes_aligned"):
+            self.de_genes_aligned = pd.read_csv(path)
+
+        return self.de_genes_aligned.groupby("cluster")["gene"].apply(lambda x: list(x))[cluster]
+
     def get_clusters_with_biomarker_expression(self, biomarkers):
-        if type(biomarkers) is not list:
+        if type(biomarkers) != list:
             biomarkers = list(biomarkers)
-        tumor_cluster_ids = self.cluster_exp_quantile[(self.cluster_exp_quantile[biomarkers] > 0.0).any(axis=1)].index
+        tumor_cluster_ids = self.cluster_exp_quantile[self.cluster_exp_quantile > 0.0].index
         return tumor_cluster_ids
 
 
