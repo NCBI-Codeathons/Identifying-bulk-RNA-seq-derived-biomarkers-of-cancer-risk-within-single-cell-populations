@@ -106,7 +106,7 @@ Then, by comparing across all tumors, we can see if there is a common GO term in
 To accomplish this analysis, we build a table of Adjusted P-Value (FDR rate) by running GSEA on the DE genes of every tumor-cluster pairs.
 
 ```bash
-$ pythonw gsea.py SLC16A3
+$ pythonw gsea.py -g SLC16A3 -o reports/output.png
 ```
 
 <table border="1" class="dataframe">
