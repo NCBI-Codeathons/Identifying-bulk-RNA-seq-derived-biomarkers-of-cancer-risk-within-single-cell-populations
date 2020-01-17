@@ -43,7 +43,6 @@ class H5COUNTS():
         self.tumor2id = {tumor: tumor_id + 1 for tumor_id, tumor in enumerate(self.TUMORS)}
         self.id2tumor = {tumor_id + 1: tumor for tumor_id, tumor in enumerate(self.TUMORS)}
 
-
     def preprocess_data(self, log_normalize=True, filter_genes=False, n_neighbors=False, umap=False):
         self.tumor_to_ad = {}
         for tumor in self.TUMORS:
