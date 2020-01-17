@@ -114,12 +114,19 @@ class H5COUNTS():
         for tumor in tumor_ids:
             self.tumor_to_ad[self.id2tumor[tumor]].obs = self.tumor_to_ad[self.id2tumor[tumor]].obs.join(tumor_cell_cluster_df, on="cell")
 
-    def get_non_negative_expressions(self, biomarkers:list, quantile_threshold=0.75):
+    def get_aggregated_cluster_expression(self, biomarkers:list, quantile_threshold=0.75):
         all_tumor_cell_biomarkers = self.all_tumor_df[biomarkers]
         cluster_exp = pd.merge(all_tumor_cell_biomarkers, self.tumor_cell_cluster, on=["tumor", "cell"]) \
             .reset_index().set_index(["tumor", "cell", "cluster"])
-        cluster_exp_quantile = cluster_exp.groupby(["tumor", "cluster"])[biomarkers].quantile(quantile_threshold)
-        return cluster_exp_quantile
+        self.cluster_exp_quantile = cluster_exp.groupby(["tumor", "cluster"])[biomarkers].quantile(quantile_threshold)
+        return self.cluster_exp_quantile
+
+    def get_clusters_with_biomarker_expression(self, biomarkers):
+        if type(biomarkers) is not list:
+            biomarkers = list(biomarkers)
+        tumor_cluster_ids = self.cluster_exp_quantile[(self.cluster_exp_quantile[biomarkers] > 0.0).any(axis=1)].index
+        return tumor_cluster_ids
+
 
 
 

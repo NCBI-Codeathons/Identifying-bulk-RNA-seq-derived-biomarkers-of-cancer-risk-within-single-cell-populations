@@ -5,16 +5,17 @@ import plotly.express as px
 from ..common.load_h5 import H5COUNTS
 
 class GSEA_Analysis():
-    def __init__(self, h5_counts:H5COUNTS, path="data/interim/",
+    def __init__(self, data:H5COUNTS, path="data/interim/",
                  threshold=0.05,
                  gene_sets=['GO_Biological_Process_2018', 'GO_Cellular_Component_2018', 'GO_Molecular_Function_2018'],
                  tumor_ids=[1, 2, 3, 4, 5, 6, 7, 8]):
         self.gsea_table = pd.DataFrame()
+        self.data = data
 
         for tumor_id in tumor_ids:
             de_genes_tumor_df = pd.read_csv(path+"MK_genes_TUMOR{}.csv".format(tumor_id))
             de_genes_by_cluster = de_genes_tumor_df.groupby("cluster")["gene"].apply(lambda x: "|".join(x.unique()))
-            tumor_name = h5_counts.id2tumor[tumor_id]
+            tumor_name = data.id2tumor[tumor_id]
 
             print("Running GSEA for tumor", tumor_name)
             for cluster in de_genes_by_cluster.index:
@@ -38,5 +39,10 @@ class GSEA_Analysis():
 
     def get_gsea_result(self):
         return self.gsea_table
+
+    def get_gsea_result_by_cluster(self, tumor_cluster_ids):
+        results = self.gsea_table.loc[tumor_cluster_ids].T
+        results = results[results.notna().any(axis=1)]
+        return results
 
 
