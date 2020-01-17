@@ -50,8 +50,10 @@ def main(argv):
 
     scRNAdata.get_aggregated_cluster_expression(biomarker, groupby=["cluster"], quantile_threshold=0.75)
     cluster_id = scRNAdata.cluster_exp_quantile[scRNAdata.cluster_exp_quantile > 0.0].index
-
-    de_genes = scRNAdata.get_de_genes_by_cluster(int(cluster_id[0]))
+    cluster_id = int(cluster_id[0])
+    if cluster_id == 17:
+        return "This cluster is exluded"
+    de_genes = scRNAdata.get_de_genes_by_cluster(cluster_id)
     print(de_genes)
     return de_genes
 

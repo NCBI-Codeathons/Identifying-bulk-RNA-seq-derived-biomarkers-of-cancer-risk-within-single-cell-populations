@@ -3,7 +3,8 @@ from src.common.load_h5 import H5COUNTS
 from src.preprocess.build_h5_GSE103224 import build_h5
 import pandas as pd
 import warnings
-
+from src.analysis.gsea_analysis import GSEA_Analysis
+from src.visualization import heatmap
 # warnings.simplefilter("ignore")
 
 # Load data
@@ -11,9 +12,9 @@ scRNAdata = H5COUNTS('data/GSE103224.h5')
 # Preprocess data
 scRNAdata.preprocess_data(log_normalize=True, filter_genes=False, n_neighbors=False, umap=False)
 # # Add clustering results
-scRNAdata.add_clustering_results("data/clustering_aligned/metadata.csv")
+scRNAdata.add_clustering_results("data/interim", tumor_ids=[1, 2, 3, 4, 5, 6, 7, 8])
 
-
+gsea = GSEA_Analysis(scRNAdata, threshold=0.05,)
 # # Aggregate all cell expressions to find clusters with the biomarkers expressed
 # scRNAdata.get_aggregated_cluster_expression(biomarkers, quantile_threshold=0.75,)
 #
@@ -33,7 +34,7 @@ scRNAdata.add_clustering_results("data/clustering_aligned/metadata.csv")
 
 def main(argv):
     try:
-        opts, args = getopt.getopt(argv, "h:g:", ["ifile1=", "ifile2="])
+        opts, args = getopt.getopt(argv, "h:g:o", ["ifile1=", "ifile2="])
         print(args, opts)
 
     except getopt.GetoptError:
@@ -48,11 +49,16 @@ def main(argv):
         elif opt in ("-g", "--genes"):
             biomarker = arg
 
+        elif opt in ("-o", "--output"):
+            output = arg
+
     scRNAdata.get_aggregated_cluster_expression(biomarker, groupby=["cluster"], quantile_threshold=0.75)
     cluster_id = scRNAdata.cluster_exp_quantile[scRNAdata.cluster_exp_quantile > 0.0].index
 
     de_genes = scRNAdata.get_de_genes_by_cluster(int(cluster_id[0]))
     print(de_genes)
+
+    heatmap(gsea.get_gsea_result().T, file_output=output)
     return de_genes
 
 
