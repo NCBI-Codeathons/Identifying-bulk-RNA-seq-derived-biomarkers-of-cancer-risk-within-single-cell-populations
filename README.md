@@ -32,7 +32,7 @@ This readme introduces our project in the Single-Cell In the Cloud Codeathon at 
 
 Table of Content
 
-- [Running our pipeline](#Running our pipeline)
+- [Running Our Pipeline](#Running Our Pipeline)
 - [Workflow](#Workflow)
 
   
@@ -74,10 +74,22 @@ $ python run.py --preprocess
 
 ### 3. Data Clustering  
 We performed gene/cell filtering and clustering on the filtered expression matrix using Seurat v3. The resolution used for clustering was eiather 0.8 (single tumor) and 1 (integrated data).
-```bash
-$ Done in Seurat
 ```
-Save the clustering results
+Done in Seurat
+```
+Clustering results per tumor are saved at
+
+```
+data/interim/
+```
+
+Clustering results for aligned-tumor single-cell expression data are saved at
+
+~~~
+data/clustering_aligned/
+~~~
+
+
 
 ### 4. Find differentially-expressed genes from each cluster (for each tumor)
 After obtaining the clustering results, we generate a list of differentially-expressed genes for each cluster against all other clusters. In this example, we test with gene TIMP4
@@ -213,8 +225,6 @@ from src.analysis.gsea_analysis import GSEA_Analysis
   </tbody>
 </table>
 <p>71 rows × 5 columns</p>
-
-
 ### 6. Find certain clusters which have cells expressing a biomarker of interest
 
 Given the user's biomarker of interest they want to explore, we can identify the clusters which have cells expressing this biomarker. Then, they can look at the gene sets enriched by these clusters.
