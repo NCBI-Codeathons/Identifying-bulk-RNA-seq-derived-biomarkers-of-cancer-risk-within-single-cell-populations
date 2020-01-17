@@ -2,7 +2,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
 
-def heatmap(table, file_output=None, autosize=True, width=800, height=1000):
+def heatmap(table, file_output=None, title=None, autosize=True, width=800, height=1000):
     if type(table.columns) == pd.MultiIndex:
         columns = table.columns.to_series().apply(lambda x: '{0}-{1}'.format(*x))
     else:
@@ -13,7 +13,7 @@ def heatmap(table, file_output=None, autosize=True, width=800, height=1000):
                     y=table.index,
                     hoverongaps = False,))
     fig.update_layout(
-        title="Gene set enrichment of DE genes by tumor_cluster",
+        title=title,
         autosize=autosize,
         width=width,
         height=height,
