@@ -91,8 +91,9 @@ data/clustering_aligned/
 
 
 
-### 4. Find differentially-expressed genes from each cluster (for each tumor)
-After obtaining the clustering results, we generate a list of differentially-expressed genes for each cluster against all other clusters. In this example, we test with gene TIMP4
+### 4. Find differentially-expressed genes from each cluster in aligned data for 8 tumors
+After obtaining the clustering results from inetragtion of 8 tumors, we generate a list of differentially-expressed genes for each cluster. This is done by comparing a given gene against the overlap expression of the remaining clusters.   
+In this example, we test with gene TIMP4
 ```
 $ pythonw get_de_genes_cluster.py -g TIMP4
 ```
