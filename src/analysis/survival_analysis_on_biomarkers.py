@@ -12,6 +12,7 @@ from scipy.stats import zscore
 import sys
 import numpy as np
 import pandas as pd
+from optparse import OptionParser
 import lifelines
 from lifelines import KaplanMeierFitter
 from lifelines.statistics import logrank_test
@@ -26,6 +27,13 @@ import slice_matrix
 BIOMARKERS_F = '/Users/matthewbernstein/Development/single-cell-hackathon/Identifying-bulk-RNA-seq-derived-biomarkers-of-cancer-risk-within-single-cell-populations/data/MK_genes_TUMORS_integrated.csv'
 
 def main():
+    usage = "" # TODO
+    parser = OptionParser(usage=usage)
+    parser.add_option("-o", "--out_dir", help="Directory to write output")
+    (options, args) = parser.parse_args()
+
+    BIOMARKERS_F = 
+
     df = pd.read_csv(BIOMARKERS_F)
     MARKERS = list(df['gene'])
 
@@ -72,7 +80,6 @@ def main():
 
     df_high = df.loc[df['score'] > high]
     df_low = df.loc[df['score'] <= low]
-
 
     r = logrank_test(
         df_high['time'],
