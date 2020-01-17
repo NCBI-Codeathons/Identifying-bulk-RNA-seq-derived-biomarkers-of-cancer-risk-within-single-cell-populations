@@ -44,7 +44,7 @@ class H5COUNTS():
         self.id2tumor = {tumor_id + 1: tumor for tumor_id, tumor in enumerate(self.TUMORS)}
 
 
-    def preprocess_data(self):
+    def preprocess_data(self, log_normalize=True, filter_genes=False, n_neighbors=False, umap=False):
         self.tumor_to_ad = {}
         for tumor in self.TUMORS:
             print(tumor)
@@ -58,8 +58,19 @@ class H5COUNTS():
                     columns=['gene_name']
                 )
             )
-            sc.pp.normalize_total(ad, target_sum=1e6)
-            sc.pp.log1p(ad)
+            if log_normalize:
+                sc.pp.normalize_total(ad, target_sum=1e6)
+                sc.pp.log1p(ad)
+
+            if filter_genes:
+                sc.pp.filter_genes(ad, min_cells=3, min_counts=200)
+
+            if n_neighbors:
+                sc.pp.neighbors(ad)
+
+            if umap:
+                sc.tl.umap(ad)
+
             ad.X = pd.DataFrame(ad.X, index=cells, columns=self.GENE_NAMES)
             self.tumor_to_ad[tumor] = ad
 
@@ -103,12 +114,19 @@ class H5COUNTS():
         for tumor in tumor_ids:
             self.tumor_to_ad[self.id2tumor[tumor]].obs = self.tumor_to_ad[self.id2tumor[tumor]].obs.join(tumor_cell_cluster_df, on="cell")
 
-    def get_non_negative_expressions(self, biomarkers:list, quantile_threshold=0.75):
+    def get_aggregated_cluster_expression(self, biomarkers:list, quantile_threshold=0.75):
         all_tumor_cell_biomarkers = self.all_tumor_df[biomarkers]
         cluster_exp = pd.merge(all_tumor_cell_biomarkers, self.tumor_cell_cluster, on=["tumor", "cell"]) \
             .reset_index().set_index(["tumor", "cell", "cluster"])
-        cluster_exp_quantile = cluster_exp.groupby(["tumor", "cluster"])[biomarkers].quantile(quantile_threshold)
-        return cluster_exp_quantile
+        self.cluster_exp_quantile = cluster_exp.groupby(["tumor", "cluster"])[biomarkers].quantile(quantile_threshold)
+        return self.cluster_exp_quantile
+
+    def get_clusters_with_biomarker_expression(self, biomarkers):
+        if type(biomarkers) is not list:
+            biomarkers = list(biomarkers)
+        tumor_cluster_ids = self.cluster_exp_quantile[(self.cluster_exp_quantile[biomarkers] > 0.0).any(axis=1)].index
+        return tumor_cluster_ids
+
 
 
 
