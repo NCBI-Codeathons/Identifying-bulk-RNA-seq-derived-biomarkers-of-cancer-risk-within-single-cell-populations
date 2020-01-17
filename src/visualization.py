@@ -2,7 +2,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
 
-def heatmap(table, autosize=True, width=800, height=1000):
+def heatmap(table, file_output=None, autosize=True, width=800, height=1000):
     if type(table.columns) == pd.MultiIndex:
         columns = table.columns.to_series().apply(lambda x: '{0}-{1}'.format(*x))
     else:
@@ -18,4 +18,7 @@ def heatmap(table, autosize=True, width=800, height=1000):
         width=width,
         height=height,
     )
-    fig.show()
+    if file_output:
+        fig.write_image(file_output)
+
+    return fig

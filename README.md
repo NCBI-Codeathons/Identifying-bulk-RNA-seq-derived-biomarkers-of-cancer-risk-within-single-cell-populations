@@ -8,6 +8,10 @@ Some questions we could try to answer:
 - Can we characterize these "dangerous" cell populations? (e.g. do they look like some known normal cell type)
 - Do these 8 tumors differ in regards to the distribution of these "dangerous" cell populations
 
+Team Lead: 
+
+Team Members: 
+
 # Readme
 
 This readme introduces our project in the Single-Cell In the Cloud Codeathon at the NY Genome Center.
@@ -21,8 +25,10 @@ Table of Content
 
 # Running Our Pipeline
 
-```bash
+To install our pipeline and all dependencies, run
 
+```bash
+pip install 
 ```
 
 
@@ -71,7 +77,12 @@ After obtaining the clustering results, we generate a list of differentially-exp
 ```
 
 ### 5. Perform Gene Set Enrichment Analysis on the DE genes for all clusters
-We want to identify whether certain cell clusters have some GO terms enriched. Then, by comparing across all tumors, we can see if there is a common GO term involved in at least one cluster. To accomplish this analysis, we build a table of Adjusted P-Value (FDR rate) by running GSEA on the DE genes of every tumor-cluster pairs.
+We want to identify whether certain cell clusters have some GO terms enriched. 
+
+Then, by comparing across all tumors, we can see if there is a common GO term involved in at least one cluster. 
+
+To accomplish this analysis, we build a table of Adjusted P-Value (FDR rate) by running GSEA on the DE genes of every tumor-cluster pairs.
+
 ```python
 
 ```
