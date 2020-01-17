@@ -16,7 +16,7 @@ Table of Content
 
 - [Background](#Background)
 - [Workflow](#Workflow)
-- [Requirements](#Requirements)  
+- [Running our pipeline](#Running our pipeline)  
 
 # Background
 
@@ -66,12 +66,10 @@ After obtaining the clustering results, we generate a list of differentially-exp
 ```
 
 ### 5. Perform Gene Set Enrichment Analysis on the DE genes for all clusters
-We want to identify whether certain cell clusters have some GO terms enriched. Then, by comparing across all tumors, we can see if there is a common GO term involved in at least one cluster. To accomplish this analysis, we run GSEA on a table of 
+We want to identify whether certain cell clusters have some GO terms enriched. Then, by comparing across all tumors, we can see if there is a common GO term involved in at least one cluster. To accomplish this analysis, we build a table of Adjusted P-Value (FDR rate) by running GSEA on the DE genes of every tumor-cluster pairs.
 ```python
 
 ```
-
-### 6. Find certain clusters which have cells expressing a biomarker of interest
 
 <table border="1" class="dataframe">
   <thead>
@@ -189,3 +187,9 @@ We want to identify whether certain cell clusters have some GO terms enriched. T
   </tbody>
 </table>
 <p>71 rows × 5 columns</p>
+
+
+
+### 6. Find certain clusters which have cells expressing a biomarker of interest
+
+Given the user's biomarker of interest they want to explore, we can identify the clusters which have cells expressing this biomarker. Then, they can look at the gene sets enriched by these clusters.
